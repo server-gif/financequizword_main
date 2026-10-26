@@ -36,10 +36,10 @@
   display: block;
   width: 40px;
   height: 40px;
-  filter: drop-shadow(0 2px 5px rgba(0, 63, 52, 0.3));
+  filter: drop-shadow(0 2px 5px rgba(30, 58, 138, 0.35));
 }
 
-/* Same split as the header: "Finzoria" in ink, "Finance" in brand colour. */
+/* Same split as the header: "Finance" in ink, "QuizWord" in brand colour. */
 .footer__logo-name span {
   color: var(--color-brand);
 }

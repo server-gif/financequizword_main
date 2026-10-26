@@ -1,4 +1,4 @@
-# FinzoriaFinance — Financial Blog (React + Google Ad Manager)
+# FinanceQuizWord — Financial Blog (React + Google Ad Manager)
 
 A responsive financial-education publication built with React 19, React Router 7 and Vite,
 with Google Ad Manager (GAM) display placements and an interstitial shown when a reader opens an article.
@@ -12,7 +12,7 @@ npm run build      # production build in dist/
 npm run preview    # serve the production build
 ```
 
-Set `VITE_SITE_URL=https://finzoriafinance.com` at build time so canonical and Open Graph URLs are correct
+Set `VITE_SITE_URL=https://financequizword.com` at build time so canonical and Open Graph URLs are correct
 (it is already in `.env`, and `src/config/site.js` falls back to the same domain).
 
 ## Project structure
@@ -45,7 +45,8 @@ public/images/             article illustrations (SVG) and og/ PNGs for social p
 
 ## Google Ad Manager
 
-**Only Google's public GPT sample network (`/6355419/...`) is used.** These are test units and never earn revenue.
+**Only your own GAM network (`/23338698373/...`) is used** — the same units as the main site
+(`finzoriacapital_display_01`, `finzoriacapital_interstitial_001`).
 
 To go live, edit `src/config/ads.js` and replace each `adUnitPath` with your own unit
 (e.g. `/<network-code>/<site>/top_leaderboard`). No component changes are needed.
@@ -64,20 +65,26 @@ How it is wired:
 
 1. `useArticleLink` gives each card a real, crawlable `href` and intercepts plain left-clicks
    (Ctrl/⌘/middle-click still open a new tab normally).
-2. `InterstitialProvider` opens the overlay and requests the interstitial slot.
+2. `InterstitialProvider` counts the article click and, if the ad is preloaded and this click is due,
+   shows the full-screen overlay (blurred veil, "Close" button, Escape also closes).
 3. Navigation with React Router happens **exactly once**, when any of these occurs:
-   the reader closes the ad (✕, "Continue to article" or Escape) · the slot is empty · GPT errors or is blocked ·
-   the ad has not rendered within `interstitial.loadTimeoutMs` (5 s). If GPT already failed, the overlay is skipped entirely.
+   the reader closes the overlay ("Close" or Escape) · the slot is empty · GPT errors or is blocked ·
+   the reader switches tabs. If no creative is preloaded, or GPT already failed, the overlay is skipped entirely.
 4. Back/forward or header navigation while the overlay is open simply dismisses it.
 
-`interstitial.frequencyCapMs` (default `0`, i.e. every click while testing) limits how often it appears.
+`interstitial.showOnEvenClicks` controls the even/odd cadence: with `true` (default) the overlay appears
+on the 2nd, 4th, 6th… article click and odd clicks open the article directly; set it to `false` to show
+it on every article click. The click counter restarts on a page reload. Clicks that are not due navigate
+straight to the article and the preloaded ad is kept for the next one. `interstitial.frequencyCapMs`
+(default `0`, i.e. no time limit) can add a minimum gap between shows.
 
-**Why a publisher-controlled overlay instead of GPT's native web interstitial format?**
+**Why our own overlay instead of GPT's native web interstitial format?**
 GPT's `OutOfPageFormat.INTERSTITIAL` cannot be opened from code: Google decides when to show it,
 only on its own triggers and frequency caps, and continues with a full page load rather than
 React Router navigation. That cannot satisfy "click → show ad → close → SPA navigate". The overlay
-here hosts a normal GAM slot instead. Before production, confirm the format and frequency you choose
-comply with your Ad Manager agreement and the Better Ads Standards.
+here hosts a normal GAM slot instead (`components/InterstitialAd/InterstitialAd.css`). Before
+production, confirm the format and frequency you choose comply with your Ad Manager agreement and
+the Better Ads Standards.
 
 ## SEO
 

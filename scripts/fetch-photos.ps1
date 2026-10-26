@@ -3,10 +3,10 @@
   Downloads the 14 article photographs into public\images\photos\.
 
 .DESCRIPTION
-  FinzoriaFinance article images are real photographs used under the Pexels Licence:
+  FinanceQuizWord article images are real photographs used under the Pexels Licence:
   free for commercial use, no attribution required (https://www.pexels.com/license/).
   Copyright stays with each photographer, so the Terms page deliberately does not
-  describe photographs as FinzoriaFinance work.
+  describe photographs as FinanceQuizWord work.
 
   Files are self-hosted rather than hot-linked, so a removed or renamed upstream
   file can never break the live site.
@@ -40,20 +40,20 @@ $dest = Join-Path $root 'public\images\photos'
 # slug => Pexels photo id. This table is the single source of truth; src/data
 # and src/config never name a third-party image URL themselves.
 $photos = [ordered]@{
-  'how-compound-interest-works'          = 11391951
-  'beginners-guide-to-investing'         = 5716016
-  'how-to-build-an-emergency-fund'       = 7010128
-  'smart-ways-to-save-money'             = 1602726
-  'understanding-mutual-funds'           = 730564
-  'what-is-a-credit-score'               = 19867473
-  'how-to-create-a-monthly-budget'       = 4386339
-  'stock-market-basics-for-beginners'    = 6770610
-  'how-inflation-affects-your-money'     = 4971967
-  'financial-planning-for-young-adults'  = 6963046
-  'how-to-use-credit-cards-responsibly'  = 5239818
-  'understanding-loans-and-interest-rates' = 8293750
-  'tax-basics-everyone-should-know'      = 6863337
-  'how-small-businesses-manage-cash-flow' = 4921267
+  'how-compound-interest-works'          = 9648153
+  'beginners-guide-to-investing'         = 28682351
+  'how-to-build-an-emergency-fund'       = 7680483
+  'smart-ways-to-save-money'             = 12357532
+  'understanding-mutual-funds'           = 7947741
+  'what-is-a-credit-score'               = 164571
+  'how-to-create-a-monthly-budget'       = 6328874
+  'stock-market-basics-for-beginners'    = 534216
+  'how-inflation-affects-your-money'     = 4199256
+  'financial-planning-for-young-adults'  = 4475473
+  'how-to-use-credit-cards-responsibly'  = 11412587
+  'how-interest-rates-affect-your-money' = 11743789
+  'tax-basics-everyone-should-know'      = 6928878
+  'how-small-businesses-manage-cash-flow' = 4473496
 }
 
 New-Item -ItemType Directory -Force -Path $dest | Out-Null

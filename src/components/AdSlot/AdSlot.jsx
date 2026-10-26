@@ -26,7 +26,7 @@ export default function AdSlot({ placement = 'content', refreshKey, className = 
   if (!config || !AD_CONFIG.enabled || !config.adUnitPath) return null;
 
   // No ad coming — drop the frame but keep the "Advertisement" label.
-  const failed = status === 'empty' || status === 'error' || status === 'timeout' || status === 'closed';
+  const failed = status === 'empty' || status === 'error' || status === 'timeout';
 
   const style = {
     '--ad-min-h-mobile': `${config.minHeight.mobile}px`,
